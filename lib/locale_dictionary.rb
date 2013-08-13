@@ -6,7 +6,7 @@ module ReadyForI18N
     end
     def push(key,value,path = nil)
       h = @hash
-      path.each{|p| h[p] ||= {}; h = h[p] } if path
+      path.each{|p| fp = p.sub(/^_/, ''); h[fp] ||= {}; h = h[fp] } if path
       h[key] = value
     end
     def write_to(out)

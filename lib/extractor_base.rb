@@ -31,11 +31,28 @@ module ReadyForI18N
       end
       buffer.string
     end
+    
+    
     def to_key(s)
       val = to_value(s)
       result = (ExtractorBase.key_mapper) ? ExtractorBase.key_mapper.key_for(val) : val.scan(/\w+/).join('_').downcase
+      
+      #trim long keys
+      if result.length > 50
+        result.gsub!(/_/, ' ')
+        result.gsub!(/\b(the|be|to|of|and|a|in|that|have|I|it|for|not|on|with|he|as|you|do|at)\b/i,' ')
+        result.gsub!(/\s{2,}/,' ')
+        if result.length > 50
+          result = result[0..49]
+        end
+        result.strip!
+        result.gsub!(/\s/, '_')
+      end
+
       key_prefix ? "#{key_prefix}_#{result}" : result
     end
+
+
     def can_replace?(e)
       e.strip.size > 1
     end

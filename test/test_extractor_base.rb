@@ -8,6 +8,17 @@ class TestExtractorBase < Test::Unit::TestCase
     c.extend ReadyForI18N::ExtractorBase
     assert_equal('confirm_password', c.to_key('Confirm password:'))
   end
+  
+  should "truncate a long key" do
+    c = Object.new
+    def c.key_prefix; nil;end
+    def c.to_value(s); s ;end
+    c.extend ReadyForI18N::ExtractorBase
+    val = "Big price drops! The products below are selected from categories that you frequently track products in and have had large price drops since the last price update. See more price drops."
+    assert_equal('big_price_drops_products_below_are_selected_from_c', c.to_key(val)) 
+    val = "the Camel will appear on the right side of your address bar."
+    assert_equal('camel_will_appear_right_side_your_address_bar', c.to_key(val))
+  end
 
   should "work fine with prefix" do
     c = Object.new

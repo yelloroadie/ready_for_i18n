@@ -2,6 +2,7 @@ module ReadyForI18N
   class HtmlAttrExtractor < HtmlTextExtractor
     LABEL_TAG_ATTR_PATTERN = [[/<img(.*)(\/>|<\/img>)/i,/alt=["'](.*?)["']/i],
                               [/<img(.*)(\/>|<\/img>)/i,/title=["'](.*?)["']/i],
+                              [/<a\s(.*)(\/>|<\/a>)/i,/title=["'](.*?)["']/i],
                               [/<input(.*)\s*type\s*=\s*["']submit["'](.*)/i,/value\s*=\s*["'](.*?)["']/i],
                               [/<input(.*)\s*type\s*=\s*["']button["'](.*)/i,/value\s*=\s*["'](.*?)["']/i]]
     SKIP_PATTERN = /<%(.*)%>/

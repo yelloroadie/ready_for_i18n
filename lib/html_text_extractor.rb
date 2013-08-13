@@ -31,14 +31,14 @@ module ReadyForI18N
       repeat = line.scan(e).size
       replaced = t_method(e,true)
       return line if repeat == 0
-      return line.sub!(e,replaced) if repeat == 1
+      return line.sub!(e.strip,replaced) if repeat == 1
       if repeat > 1
         line.gsub!(/>\s*#{e}\s*</,">#{replaced}<")
         line.gsub!(/>\s*#{e}/,">#{replaced}")
       end
     end
     def key_prefix
-      'text'
+      't'
     end
   end
 end
